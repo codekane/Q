@@ -1,5 +1,12 @@
-body {
+div#dankhouse {
   background: url('/images/background_Dankhouse.jpg');
   background-attachment: fixed;
   background-position: 0% 0%;
+}
+
+h1.dankhouse-header {
+  color: #eee;
+}
+span#dankhouse-radio {
+  color: red;
 }
