@@ -1,1 +1,63 @@
-<h1>Hello World!</h1>
+<% if @name %>
+  <nav class="navbar navbar-dark bg-dark" id="queue-nav">
+    <h1 class="navbar-brand">Hello <%= @name %></h1>
+    <button class="btn btn-primary" id="queue-popper" onclick="queueToggle()">Add Video</button>
+  </nav>
+  <div class="container" id="queue-pop" style="display: none;">
+    <div class="row">
+      <div class="col">
+        <img src="/images/YouTube_Logo.svg" style="width: 100px; margin-top: 5%;"/>
+      </div>
+      <form>
+        <div class="form-row">
+          <div class="col">
+            <label for="searchInput">Search for a Video</label>
+            <input type="text" name="search" class="form-control" id="searchInput">
+          </div>
+          <div class="col">
+            <button type="submit" class="btn btn-primary" id="searchSubmit" style="margin-top: 5%;">Search</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="row">
+      <div class="container" id="searchResults">
+        <!--
+        <div class="search-card">
+          <img src="https://i.ytimg.com/vi/5F9F28po71o/default.jpg" width="120" height="90"/>
+          <div class="container">
+            <div class="row">
+              <b>"CATS will make you LAUGH YOUR HEAD OFF - Funny CAT compilation"</b>
+            </div>
+            <div class="row">
+              <p>"Cats are amazing creatures because they make us laugh all the time! Watching funny cats is the hardest try not to laugh challenge! Just look how all these cats ..."</p>
+            </div>
+          </div>
+        </div>
+        <div class="search-card">
+          <img src="https://i.ytimg.com/vi/HsXypbRwEH0/default.jpg" width="120" height="90" style="display: inline-block;"/>
+          <div class="container" style="display: inline-block;">
+            <div class="row">
+              <b>"Must Watch Cat Videos! Cute and Funny Cats 🐱"</b>
+            </div>
+            <div class="row">
+              <p>"hi hoomans! im rufus p goodboy and dis my yootoob channel! i has lottsa videos of doggos, good bois, cats, sleepys bois, fat bois, furry tings, floofin, blerps, ..."</p>
+            </div>
+          </div>
+        </div>
+        -->
+      </div>
+    </div>
+  <% else %>
+    <div class="container-fluid">
+      <h1 class="text-center">and you are?[<%=@name%>]</h1>
+      <form action="/register" method="post">
+        <div class="form-group">
+          <label for="nameInput">Who people should know you as</label>
+          <input type="text" name="name" class="form-control" id="nameInput" placeholder="bigbadjesus">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  <% end %>
