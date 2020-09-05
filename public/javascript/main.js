@@ -1,3 +1,4 @@
+// Handles toggling display of the YouTube Search Element in the Queue
 document.getElementById("queue-popper").onclick = function(event) {
   let target = document.getElementById("queue-pop");
   if (target.style.display === "none") {
@@ -6,6 +7,18 @@ document.getElementById("queue-popper").onclick = function(event) {
     target.style.display = "none";
   }
 }
+
+// Launches/focuses the player window
+//  function launchQueue() {
+//    console.log("test");
+//    window.open('/queue, 'Queue', 'width=720,height=400').focus();
+//  }
+//  
+// document.getElementById("launchQueue").onclick = function(event) {
+//   event.preventDefault();
+//   let w = window.open('/queue', 'Queue', 'width=720,height=400').focus();
+// }
+// END BROKEN SHIT FUCK
 
 document.getElementById("searchSubmit").onclick = function(event) {
   event.preventDefault();
