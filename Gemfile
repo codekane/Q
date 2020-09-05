@@ -7,5 +7,6 @@ source "https://rubygems.org" do
     gem "rspec"
     gem "rack-test"
     gem "rspec-html-matchers"
+    gem "capybara"
   end
 end

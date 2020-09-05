@@ -1,2 +1,5 @@
 *~
 spec/examples.txt
+*.swp
+.swp
+**.swp

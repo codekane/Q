@@ -1,9 +1,5 @@
 require "spec_helper"
 RSpec.describe ApplicationController do
-  def app
-    ApplicationController
-  end
-
   describe "GET index" do
     it "resolves successfully" do
       get "/"
@@ -20,5 +16,17 @@ RSpec.describe ApplicationController do
       get "/queue"
       expect(last_response.status).to eq 200
     end
+
+    context "given no name in the sesion" do
+      it "returns a status 200 OK"
+      it "has an input for a name"
+    end
+
+    context "given a name in the session" do
+      it "returns a status 200 OK"
+      it "has no input for a name"
+      it "greets you by name"
+    end
+
   end
 end

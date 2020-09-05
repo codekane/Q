@@ -1,9 +1,12 @@
 ENV['SINATRA_ENV'] = 'test'
 require File.expand_path('../../config/environment', __FILE__)
-# require "../../config/environent"
+require 'capybara/rspec'
+require 'capybara/dsl'
+
 RSpec.configure do |config|
   config.include Rack::Test::Methods
   config.include RSpecHtmlMatchers
+  config.include Capybara::DSL
 
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
@@ -27,3 +30,10 @@ RSpec.configure do |config|
   config.order = :random
   Kernel.srand config.seed
 end
+
+def app
+  # Load the applicaion defined in config.ru
+  Rack::Builder.parse_file('config.ru').first
+end
+
+Capybara.app = app
