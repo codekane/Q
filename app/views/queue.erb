@@ -1,9 +1,9 @@
 <% if @name %>
   <nav class="navbar navbar-dark bg-dark" id="queue-nav">
     <h1 class="navbar-brand">Hello <%= @name %></h1>
-    <button class="btn btn-primary" id="queue-popper" onclick="queueToggle()">Add Video</button>
+    <button class="btn btn-primary" id="queue-popper">Add Video</button>
   </nav>
-  <div class="container" id="queue-pop" style="display: none;">
+  <div class="container hidden" id="queue-pop">
     <div class="row">
       <div class="col">
         <img src="/images/YouTube_Logo.svg" style="width: 100px; margin-top: 5%;"/>

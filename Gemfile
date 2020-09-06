@@ -8,5 +8,7 @@ source "https://rubygems.org" do
     gem "rack-test"
     gem "rspec-html-matchers"
     gem "capybara"
+    gem "selenium-webdriver"
+    gem "puma"
   end
 end

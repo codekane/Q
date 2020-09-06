@@ -33,3 +33,7 @@ nav#queue-nav button {
   border: 1px solid rgba(0,0,0,.125);
   border-radius: .25rem;
 }
+
+.hidden {
+  display: none;
+}

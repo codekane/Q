@@ -1,10 +1,12 @@
 // Handles toggling display of the YouTube Search Element in the Queue
+
 document.getElementById("queue-popper").onclick = function(event) {
   let target = document.getElementById("queue-pop");
-  if (target.style.display === "none") {
-    target.style.display = "block";
+  if (target.classList.contains("hidden")) {
+    console.log(target);
+    target.classList.remove("hidden");
   } else {
-    target.style.display = "none";
+    target.classList.add("hidden");
   }
 }
 

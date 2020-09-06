@@ -15,6 +15,7 @@ RSpec.describe ApplicationController do
     end
 
   end
+
   describe "POST '/queue' - User Greeting" do
     it "knows who you are" do
       visit '/queue'
@@ -23,6 +24,47 @@ RSpec.describe ApplicationController do
       click_button "Submit"
 
       expect(page).to have_text("Scald")
+    end
+  end
+
+  describe "Homepage", type: :feature, js: true do
+
+    it "Embeds Ezcapechat" do
+      visit '/'
+      expect(page).to have_tag("div.ezcapechat_embed")
+    end
+
+    it "Pops up the YouTube Queue" do
+      visit '/'
+
+      queue = window_opened_by do
+        click_button("Listen In")
+      end
+
+      within_window(queue) do
+        expect(page).to have_current_path('/queue')
+      end
+      it "Focuses the same window without creating a new one on additional clicks"
+    end
+  end
+
+  describe "logging in with the queue", type: :feature,  js: true do
+    before do
+      visit '/queue'
+      fill_in(:name, :with => "Scald")
+      click_button "Submit"
+    end
+
+    it "knows who I am" do
+      expect(page).to have_text("Scald")
+    end
+
+    it "correctly toggles visibility of the search" do
+      expect(page).to have_css('#queue-pop', :visible => false)
+      click_button("Add Video")
+      expect(page).to have_css('#queue-pop', :visible => true)
+      click_button("Add Video")
+      expect(page).to have_css('#queue-pop', :visible => false)
     end
   end
 end

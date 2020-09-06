@@ -37,3 +37,4 @@ def app
 end
 
 Capybara.app = app
+Capybara.javascript_driver = :selenium_headless
