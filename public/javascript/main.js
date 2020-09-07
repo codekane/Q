@@ -9,6 +9,7 @@ document.getElementById("queue-popper").onclick = function(event) {
   }
 }
 
+
 // Search Feature
 document.getElementById("searchSubmit").onclick = function(event) {
   event.preventDefault();
@@ -28,9 +29,91 @@ function clearResults() {
   }
 }
 
-// Hits the YouTube Data API to pull in a batch of search results, and populate 
-// the queue with cards
-//
+// Generates the DATA PAYLOAD OBJECTto include with API requests
+function request(search, pagetoken) {
+  if (pagetoken) {
+    return {
+      key: 'AIzaSyCwKyWI7WeJ6XPRUM4-9TrZsg0YKbk2zAI',
+      q: search,
+      part: 'snippet',
+      maxResults: 50,
+      type: 'video',
+      videoEmbeddable: true,
+      pageToken: pagetoken
+    }
+  } else {
+    return {
+      key: 'AIzaSyCwKyWI7WeJ6XPRUM4-9TrZsg0YKbk2zAI',
+      q: search,
+      part: 'snippet',
+      maxResults: 50,
+      type: 'video',
+      videoEmbeddable: true,
+    }
+  }
+}
+
+function setPagination(query, data) {
+  var previous = document.getElementById("previousPage");
+  var next = document.getElementById("nextPage");
+  previous.setAttribute("data-query", query);
+  next.setAttribute("data-query", query);
+  if (data.nextPageToken) {
+    next.setAttribute("data-token", data.nextPageToken);
+  }
+  if (data.previousPageToken) {
+    previous.setAttribute("data-token", data.previousPageToken);
+  }
+}
+
+
+document.getElementById("nextPage").onclick = function(event) {
+  var dataToken = event.target.getAttribute("data-token");
+  var dataQuery = event.target.getAttribute("data-query");
+  console.log("Token is" + dataToken);
+  console.log("Query is" + dataQuery);
+  clearResults();
+  getVideos(dataQuery, dataToken);
+}
+
+document.getElementById("previousPage").onclick = function(event) {
+  var dataToken = event.target.getAttribute("data-token");
+  var dataQuery = event.target.getAttribute("data-query");
+  console.log("Token is" + dataToken);
+  console.log("Query is" + dataQuery);
+  clearResults();
+  getVideos(dataQuery, dataToken);
+}
+
+function getVideos(query, token) {
+  var data = request(query, token);
+  $.ajax({
+    type: 'GET',
+    url: 'https://www.googleapis.com/youtube/v3/search',
+    data: data,
+    success: function(data) {
+      console.log(data);
+      populateResultsCounter(data.pageInfo);
+      populateResults(data);
+      setPagination(query, data)
+    },
+    error: function(response) {
+      console.log("Request Failed");
+    }
+  });
+}
+
+function populateResultsCounter(pageInfo) {
+  var target = document.getElementById("responseData");
+  var resultsPerPage = target.children[0].children[0];
+  var totalResults = target.children[1].children[0];
+
+  resultsPerPage.innerHTML = "Results Per Page: " + pageInfo.resultsPerPage;
+  totalResults.innerHTML = "Total Results: " + pageInfo.totalResults;
+}
+
+
+
 
 function populateResults(data) {
   let target = document.getElementById("searchResults");
@@ -78,35 +161,4 @@ function populateResults(data) {
     // Adds the completed card to the queue list
     target.appendChild(card);
   }
-}
-
-  function getVideos(search) {
-    $.ajax({
-      type: 'GET',
-      url: 'https://www.googleapis.com/youtube/v3/search',
-      data: {
-        key: 'AIzaSyCwKyWI7WeJ6XPRUM4-9TrZsg0YKbk2zAI',
-        q: search,
-        part: 'snippet',
-        maxResults: 100,
-        type: 'video',
-        videoEmbeddable: true,
-      },
-      success: function(data) {
-        populateResultsCounter(data.pageInfo);
-        populateResults(data);
-      },
-      error: function(response) {
-        console.log("Request Failed");
-      }
-  });
-}
-
-function populateResultsCounter(pageInfo) {
-  var target = document.getElementById("responseData");
-  var resultsPerPage = target.children[0].children[0];
-  var totalResults = target.children[1].children[0];
-
-  resultsPerPage.innerHTML = "Results Per Page: " + pageInfo.resultsPerPage;
-  totalResults.innerHTML = "Total Results: " + pageInfo.totalResults;
 }
