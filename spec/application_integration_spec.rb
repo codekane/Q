@@ -85,7 +85,19 @@ RSpec.describe ApplicationController do
       expect(page).to have_text("1000000")
     end
 
-    it "displays a max of 50 results, even after clicking the button twice"
+    it "displays a max of 50 results, even after clicking the button twice" do
+      click_button("Add Video")
+      fill_in(:search, :with => "cats")
+      click_button("Search")
+
+      list = find('#searchResults').all('div.search-card')
+      expect(list.length).to eq 50
+
+      click_button("Search")
+      wait_for_ajax
+      newlist = find('#searchResults').all('div.search-card')
+      expect(newlist.length).to eq 50
+    end
 
     it "displays a next page button if there are more than 50 total results"
   end

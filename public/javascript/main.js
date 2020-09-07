@@ -13,16 +13,28 @@ document.getElementById("queue-popper").onclick = function(event) {
 document.getElementById("searchSubmit").onclick = function(event) {
   event.preventDefault();
   let inputVal = document.getElementById("searchInput").value;
+  clearResults();
   getVideos(inputVal);
+}
+
+function clearResults() {
+  let target = document.getElementById("searchResults");
+  if (target.children.length === 0) {
+    return
+  } else {
+    while (target.firstChild) {
+      target.removeChild(target.lastChild);
+    }
+  }
 }
 
 // Hits the YouTube Data API to pull in a batch of search results, and populate 
 // the queue with cards
+//
 
 function populateResults(data) {
   let target = document.getElementById("searchResults");
   for (let item in data.items) {
-    // Helper to find where we are.
     var thisItem = data.items[item];
 
     // Creates the search card itself
