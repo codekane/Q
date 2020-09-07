@@ -45,7 +45,7 @@ RSpec.describe ApplicationController do
         expect(page).to have_current_path('/queue')
       end
     end
-    
+
     it "Focuses the same window without creating a new one on additional clicks"
   end
 
@@ -69,15 +69,15 @@ RSpec.describe ApplicationController do
     end
   end
 
-  describe "searching youTube videos", type: :feature, js: true do
-    before do
+  describe "Search", type: :feature, js: true do
+    before(:each) do
       visit '/queue'
       fill_in(:name, :with => "Scald")
       click_button("Submit")
+      click_button("Add Video")
     end
 
     it "informs me of the numbers of the search results" do
-      click_button("Add Video")
       fill_in(:search, :with => "cats")
       click_button("Search")
 
@@ -86,7 +86,6 @@ RSpec.describe ApplicationController do
     end
 
     it "displays a max of 50 results, even after clicking the button twice" do
-      click_button("Add Video")
       fill_in(:search, :with => "cats")
       click_button("Search")
 
@@ -99,6 +98,13 @@ RSpec.describe ApplicationController do
       expect(newlist.length).to eq 50
     end
 
-    it "displays a next page button if there are more than 50 total results"
+    it "does not show previous/next buttons until a search is performed"
+
+    it "loads the next page of results when the next page button is pressed"
+    it "loads the previous page of results when the previous page button is pressed"
+    it "disables the previous page button if this is the first page of results"
+    it "disables the next page button if this is the last page of results"
+    it "does not hit the API more than once on hitting the next button, the previous button, and then the next button again"
+
   end
 end
