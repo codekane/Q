@@ -2,6 +2,8 @@ source "https://rubygems.org" do
   gem 'sinatra'
   gem 'require_all'
   gem 'sass'
+  gem 'iodine'
+  gem 'plezi'
 
   group :test, :development do
     gem 'pry'
