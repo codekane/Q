@@ -1,7 +1,11 @@
 source "https://rubygems.org" do
   gem 'sinatra'
   gem 'require_all'
-  gem 'pry'
+  gem 'sass'
+
+  group :test, :development do
+    gem 'pry'
+  end
 
   group :test do
     gem "rspec"

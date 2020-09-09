@@ -26,4 +26,8 @@ class ApplicationController < Sinatra::Base
     session[:name] = params["name"]
     redirect "/queue"
   end
+
+  get '/main.css' do
+    scss :main
+  end
 end

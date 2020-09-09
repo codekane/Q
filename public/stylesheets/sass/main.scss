@@ -1,0 +1,39 @@
+div#dankhouse {
+  background: url('/images/background_Dankhouse.jpg');
+  background-attachment: fixed;
+  background-position: 0% 0%;
+}
+
+h1.dankhouse-header {
+  color: #eee;
+}
+span#dankhouse-radio {
+  color: red;
+}
+
+nav#queue-nav {
+  padding: 0 0 0 0;
+}
+
+nav#queue-nav h1 {
+  margin-left: 10px;
+}
+
+nav#queue-nav button {
+  margin-right: 10px;
+}
+#queue-pop {
+  background-color: #ccc;
+}
+
+.search-card {
+  flex-direction: row;
+  background-color: white;
+  display: flex;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: .25rem;
+}
+
+.hidden {
+  display: none;
+}

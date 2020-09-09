@@ -2,3 +2,4 @@
 spec/examples.txt
 *.swp
 *.swo
+.sass-cache/*
