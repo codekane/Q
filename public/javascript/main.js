@@ -1,6 +1,102 @@
+// Websocket Stuff
+
+var ws_controller_path = "/socket"; // change to '/controller/path'
+var ws_uri = (self.location.protocol.match(/https/) ? 'wss' : 'ws') + '://' +
+  self.document.location.host + ws_controller_path;
+// websocket variable.
+var websocket = NaN;
+// count failed attempts
+var websocket_fail_count = 0;
+// to limit failed reconnection attempts, set this to a number.
+var websocket_fail_limit = NaN;
+// to offer some space between reconnection attempts, set this interval in
+// miliseconds.
+var websocket_reconnect_interval = 250;
+
+function init_websocket() {
+  if (websocket && websocket.readyState == 1)
+    return true; // console.log('no need to renew socket connection');
+  websocket = new WebSocket(ws_uri);
+  websocket.onopen = function(e) {
+    // reset the count.
+    websocket_fail_count = 0;
+    // what do you want to do now?
+  };
+
+  websocket.onclose = function(e) {
+    // If the websocket repeatedly you probably want to report an error
+    if (!isNaN(websocket_fail_limit) &&
+      websocket_fail_count >= websocket_fail_limit) {
+      // What to do if we can't reconnect so many times?
+      return;
+    };
+    // you probably want to reopen the websocket if it closes.
+    if (isNaN(websocket_fail_limit) ||
+      (websocket_fail_count <= websocket_fail_limit)) {
+      // update the count
+      websocket_fail_count += 1;
+      // try to reconect
+      setTimeout(init_websocket, websocket_reconnect_interval);
+    };
+  };
+  websocket.onerror = function(e) {
+    // update the count.
+    websocket_fail_count += 1;
+    // what do you want to do now?
+  };
+  websocket.onmessage = function(e) {
+    // what do you want to do now?
+    console.log(e.data);
+    // to use JSON, use:
+    // msg = JSON.parse(e.data); // remember to use JSON also in your Plezi
+    // controller.
+  };
+}
+
+function flipConnect() {
+  var target = document.getElementById("connect");
+  var classes = target.classList.value.split(" ");
+  if (classes.includes("btn-success")) {
+    target.classList.remove("btn-success");
+    target.classList.add("btn-danger");
+    console.log(target.value);
+    target.innerText = "Disconnect";
+  } else if (classes.includes("btn-danger")) {
+    target.classList.remove("btn-danger");
+    target.classList.add("btn-success");
+    target.innerText = "Connect";
+  }
+}
+
+var testing = document.getElementById("connectSocket");
+console.log(testing);
+
+function connectSocket() {
+  init_websocket();
+  flipConnect();
+}
+
+// // Initializes the websocket upon pressing the button
+// document.getElementById("connectSocket").onclick = function(event) {
+//   init_websocket();
+//   // flipConnect();
+// }
+
+// Auto-populates the nameInput with a randomly generated placeholder
+document.addEventListener("DOMContentLoaded", function(event) {
+  let target = document.getElementById("nameInput");
+  let number = Math.round(Math.random() * 100);
+  let android = "android " + number;
+  target.placeholder = android;
+});
+
+
+
+
+// SEARCH ELEMENT
 // Handles toggling display of the YouTube Search Element in the Queue
 
-document.getElementById("queue-popper").onclick = function(event) {
+function popQueue() {
   let target = document.getElementById("queue-pop");
   if (target.classList.contains("hidden")) {
     target.classList.remove("hidden");
@@ -8,6 +104,15 @@ document.getElementById("queue-popper").onclick = function(event) {
     target.classList.add("hidden");
   }
 }
+
+//  document.getElementById("queue-popper").onclick = function(event) {
+//    let target = document.getElementById("queue-pop");
+//    if (target.classList.contains("hidden")) {
+//      target.classList.remove("hidden");
+//    } else {
+//      target.classList.add("hidden");
+//    }
+//  }
 
 
 // Search Feature
