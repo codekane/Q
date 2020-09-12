@@ -67,16 +67,28 @@ function flipConnect() {
   }
 }
 
+function toggleSocketNameInput() {
+  var target = document.getElementById("socket-name");
+  console.log(target);
+  var classes = target.classList.value.split(" ");
+  if (classes.includes("hidden")) {
+    target.classList.remove("hidden");
+  } else {
+    target.classList.add("hidden");
+  }
+}
+
 function connectSocket() {
   init_websocket();
   flipConnect();
 }
 
  // Initializes the websocket upon pressing the button
- document.getElementById("connectSocket").onclick = function(event) {
-   init_websocket();
-   flipConnect();
- }
+document.getElementById("connectSocket").onclick = function(event) {
+  init_websocket();
+  flipConnect();
+  toggleSocketNameInput();
+}
 
 // Auto-populates the socket- name input with a randomly generated placeholder
 document.addEventListener("DOMContentLoaded", function(event) {
