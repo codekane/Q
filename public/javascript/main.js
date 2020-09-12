@@ -78,9 +78,9 @@ function connectSocket() {
    flipConnect();
  }
 
-// Auto-populates the nameInput with a randomly generated placeholder
+// Auto-populates the socket- name input with a randomly generated placeholder
 document.addEventListener("DOMContentLoaded", function(event) {
-  let target = document.getElementById("nameInput");
+  let target = document.getElementById("socket-name");
   let number = Math.round(Math.random() * 100);
   let android = "android " + number;
   target.placeholder = android;
