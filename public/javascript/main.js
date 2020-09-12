@@ -54,12 +54,11 @@ function init_websocket() {
 }
 
 function flipConnect() {
-  var target = document.getElementById("connect");
+  var target = document.getElementById("connectSocket");
   var classes = target.classList.value.split(" ");
   if (classes.includes("btn-success")) {
     target.classList.remove("btn-success");
     target.classList.add("btn-danger");
-    console.log(target.value);
     target.innerText = "Disconnect";
   } else if (classes.includes("btn-danger")) {
     target.classList.remove("btn-danger");
@@ -76,7 +75,7 @@ function connectSocket() {
  // Initializes the websocket upon pressing the button
  document.getElementById("connectSocket").onclick = function(event) {
    init_websocket();
-   // flipConnect();
+   flipConnect();
  }
 
 // Auto-populates the nameInput with a randomly generated placeholder
