@@ -5,6 +5,12 @@ source "https://rubygems.org" do
   gem 'iodine'
   gem 'plezi'
 
+
+  group :development do
+    gem 'guard'
+    gem 'guard-rspec', require: false
+  end
+
   group :test, :development do
     gem 'pry'
   end
