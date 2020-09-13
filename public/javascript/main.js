@@ -1,22 +1,35 @@
 // Websocket Stuff
 
-var ws_controller_path = "/socket"; // change to '/controller/path'
-var ws_uri = (self.location.protocol.match(/https/) ? 'wss' : 'ws') + '://' +
-  self.document.location.host + ws_controller_path;
-// websocket variable.
+var ws_controller_path = "/socket";
 var websocket = NaN;
-// count failed attempts
 var websocket_fail_count = 0;
-// to limit failed reconnection attempts, set this to a number.
 var websocket_fail_limit = NaN;
-// to offer some space between reconnection attempts, set this interval in
-// miliseconds.
 var websocket_reconnect_interval = 250;
+
+function wsURI() {
+  return ((self.location.protocol.match(/https/) ? 'wss' : 'ws') + '://' +
+  self.document.location.host + ws_controller_path + nameParam());
+}
+
+function nameParam() {
+  var input = document.getElementById("socket-name");
+  var name;
+
+  if (input.value !== "") {
+    name = input.value;
+  } else if (input.placeholder) {
+    name = input.placeholder;
+  } else {
+    name = "mingebag"
+  }
+  return ("?name=" + name);
+}
+
 
 function init_websocket() {
   if (websocket && websocket.readyState == 1)
     return true; // console.log('no need to renew socket connection');
-  websocket = new WebSocket(ws_uri);
+  websocket = new WebSocket(wsURI());
   websocket.onopen = function(e) {
     // reset the count.
     websocket_fail_count = 0;
@@ -69,7 +82,6 @@ function flipConnect() {
 
 function toggleSocketNameInput() {
   var target = document.getElementById("socket-name");
-  console.log(target);
   var classes = target.classList.value.split(" ");
   if (classes.includes("hidden")) {
     target.classList.remove("hidden");

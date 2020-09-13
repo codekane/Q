@@ -2,24 +2,20 @@ require 'sinatra/base'
 require 'plezi'
 
 class SocketController
-  CHANNEL = "chat".freeze
-  # def index
-  #   'sucking on them titties like you wanted them all the time'
-  # end
-  # Websockets
+  ROOM = "room".freeze
   def on_open
-    subscribe CHANNEL
-    write 'Welcome to chatroom!'
-    @handle = params['id'.freeze] || 'Somebody'
-    publish CHANNEL, "#{ERB::Util.html_escape @handle} joind us :-)"
+    subscribe ROOM
+    @user = params['name'.freeze] || 'mingebag'
+    write @user
+    publish ROOM, "#{ERB::Util.html_escape @user} joind us :-)"
   end
   def on_message(data)
     data = ERB::Util.html_escape data
-    publish CHANNEL, data
+    publish ROOM, data
   end
 
   def on_close
-    publish CHANNEL, "#{@handle} left us :-("
+    publish ROOM, "#{@user} left us :-("
   end
 
 
