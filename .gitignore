@@ -4,3 +4,4 @@ spec/examples.txt
 *.swo
 .sass-cache/*
 tmp/
+.DS_Store
