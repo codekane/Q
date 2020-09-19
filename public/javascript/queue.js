@@ -43,7 +43,7 @@ function clearResults() {
 function request(search, pagetoken) {
   if (pagetoken) {
     return {
-      key: 'AIzaSyCwKyWI7WeJ6XPRUM4-9TrZsg0YKbk2zAI',
+      key: config.apiKey,
       q: search,
       part: 'snippet',
       maxResults: 50,
@@ -53,7 +53,7 @@ function request(search, pagetoken) {
     }
   } else {
     return {
-      key: 'AIzaSyCwKyWI7WeJ6XPRUM4-9TrZsg0YKbk2zAI',
+      key: config.apiKey,
       q: search,
       part: 'snippet',
       maxResults: 50,

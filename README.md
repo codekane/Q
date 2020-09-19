@@ -1,7 +1,9 @@
 # Q
 Heavily a Work In Progress.
 
-This is sitting at two weeks of effort, partially feature-complete.
+This requires a file named config.js in the public/javascript folder.
+Copy the example.config.js file, and input your API key.
+
 
 YouTube Search API Integration is done.
 
